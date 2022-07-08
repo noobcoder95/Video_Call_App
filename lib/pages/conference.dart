@@ -113,101 +113,103 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: TextFormField(
-              decoration: const InputDecoration(hintText: "Enter or Create Room Code"),
-              onChanged: (val) {
-                roomCode = val;
-                debugPrint(val);
-              },
-              validator: (val) {
-                if (val == null || val.isEmpty) {
-                  return "cant't be empty!";
-                } else {
-                  val = "";
-                  return null;
-                }
-              },
-            ),
-          ),
-          const SizedBox(
-            height: 25,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  joinVideoConferrencingRoom();
+    return SingleChildScrollView(
+      child: Form(
+        key: _formKey,
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: TextFormField(
+                decoration: const InputDecoration(hintText: "Enter or Create Room Code"),
+                onChanged: (val) {
+                  roomCode = val;
+                  debugPrint(val);
                 },
-                child: Container(
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        color: kPrimaryColor,
-                        borderRadius: BorderRadius.circular(29)),
-                    height: 50,
-                    width: MediaQuery.of(context).size.width / 2.4,
-                    child: Row(
+                validator: (val) {
+                  if (val == null || val.isEmpty) {
+                    return "cant't be empty!";
+                  } else {
+                    val = "";
+                    return null;
+                  }
+                },
+              ),
+            ),
+            const SizedBox(
+              height: 25,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    joinVideoConferrencingRoom();
+                  },
+                  child: Container(
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                          color: kPrimaryColor,
+                          borderRadius: BorderRadius.circular(29)),
+                      height: 50,
+                      width: MediaQuery.of(context).size.width / 2.4,
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Icon(
+                              CupertinoIcons.video_camera,
+                              size: 36,
+                              color: Colors.white,
+                            ),
+                            SizedBox(
+                              width: 9,
+                            ),
+                            Text(
+                              "Enter",
+                              style: TextStyle(color: Colors.white, fontSize: 18),
+                            ),
+                          ])),
+                ),
+                const SizedBox(
+                  width: 19,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    if (_formKey.currentState!.validate()) {
+                      Share.share(roomCode);
+                    } else {
+                      // ignore: avoid_print
+                      print("Please provide some room code");
+                    }
+                  },
+                  child: Container(
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                          color: kPrimaryLightColor,
+                          borderRadius: BorderRadius.circular(29)),
+                      height: 50,
+                      width: MediaQuery.of(context).size.width / 2.4,
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: const [
                           Icon(
-                            CupertinoIcons.video_camera,
-                            size: 36,
-                            color: Colors.white,
+                            Icons.share,
+                            color: Colors.black,
                           ),
                           SizedBox(
-                            width: 9,
+                            width: 15,
                           ),
                           Text(
-                            "Enter",
-                            style: TextStyle(color: Colors.white, fontSize: 18),
+                            "Share",
+                            style: TextStyle(color: Colors.black, fontSize: 17),
                           ),
-                        ])),
-              ),
-              const SizedBox(
-                width: 19,
-              ),
-              GestureDetector(
-                onTap: () {
-                  if (_formKey.currentState!.validate()) {
-                    Share.share(roomCode);
-                  } else {
-                    // ignore: avoid_print
-                    print("Please provide some room code");
-                  }
-                },
-                child: Container(
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        color: kPrimaryLightColor,
-                        borderRadius: BorderRadius.circular(29)),
-                    height: 50,
-                    width: MediaQuery.of(context).size.width / 2.4,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Icon(
-                          Icons.share,
-                          color: Colors.black,
-                        ),
-                        SizedBox(
-                          width: 15,
-                        ),
-                        Text(
-                          "Share",
-                          style: TextStyle(color: Colors.black, fontSize: 17),
-                        ),
-                      ],
-                    )),
-              ),
-            ],
-          )
-        ],
+                        ],
+                      )),
+                ),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
