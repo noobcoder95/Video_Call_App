@@ -184,7 +184,7 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
                 child: Container(
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: kPrimaryLightColor,
                         borderRadius: BorderRadius.circular(29)),
                     height: 50,
                     width: MediaQuery.of(context).size.width / 2.4,
@@ -193,7 +193,7 @@ class _ChatRoomFormState extends State<ChatRoomForm> {
                       children: const [
                         Icon(
                           Icons.share,
-                          color: kPrimaryColor,
+                          color: Colors.black,
                         ),
                         SizedBox(
                           width: 15,
